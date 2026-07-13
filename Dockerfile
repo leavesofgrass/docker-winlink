@@ -331,8 +331,8 @@ RUN set -eux; \
 
 # ── 8d. Fallback SSH server (port 2424) ─────────────────────────────────────
 # A plain sshd so you can get a shell, scp files, or install packages WITHOUT
-# the VNC desktop — a safety net if the GUI is wedged. Port 2424 keeps it clear
-# of the Debian (2222) and Arch (2223) dev containers. Root login is disabled;
+# the VNC desktop — a safety net if the GUI is wedged. Putting it on Port 2424
+# keeps it clear of any other containers or systems. Root login is disabled;
 # log in as the desktop user with USER_PASSWORD (or an SSH_PUBKEY, which the
 # entrypoint installs at runtime so it works with the persistent home volume).
 # Host keys are generated now; the entrypoint launches sshd via a narrow

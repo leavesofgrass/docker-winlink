@@ -1,13 +1,14 @@
-# Docker Compose for the ham-shack container (XFCE over VNC, Wine for
-# Winlink Express + VARA FM, native ham apps). Values come from the .env file
-# in THIS directory. Run:  docker compose up -d --build
+# Docker WinLink — an amateur-radio desktop (XFCE over VNC) with Winlink
+# Express + VARA under Wine. Settings come from the .env file in this directory.
+# Run:  docker compose up -d --build
 #
 # Connect:
 #   browser:    http://localhost:6080/vnc.html   (noVNC, no client needed)
 #   VNC client: localhost:5900
-# Password: VNC_PASSWORD from .env.
+#   SSH:        ssh -p 2424 ham@localhost
+# Passwords come from .env.
 
-name: ham-shack
+name: docker-winlink
 
 services:
   ham:
@@ -20,14 +21,14 @@ services:
         USERNAME: ${HAM_USER:-ham}
         USER_PASSWORD: ${USER_PASSWORD:-changeme}
         PULSE_SERVER: ${PULSE_SERVER:-tcp:host.docker.internal:4713}
-    image: ham-shack
-    container_name: ham-shack
-    hostname: ham-shack
+    image: docker-winlink
+    container_name: docker-winlink
+    hostname: docker-winlink
     # Makes "host.docker.internal" resolve on Linux hosts too (it already does
     # on Docker Desktop for Windows/Mac, where this line is a harmless no-op).
     # Without it, the default audio target below wouldn't resolve on Linux; with
     # it, audio degrades cleanly to "no sound" when no PulseAudio server is
-    # listening there (the apps still run — see the audio notes in README.md).
+    # listening there (the apps still run — see docs/audio.md).
     extra_hosts:
       - "host.docker.internal:host-gateway"
     environment:
@@ -75,7 +76,7 @@ services:
     # devices:
     #   - /dev/ttyUSB0:/dev/ttyUSB0   # USB-serial cables (FTDI/CP210x/PL2303): UV-5R prog cable, IC-7100, ID-5100, FTM-150...
     #   - /dev/ttyACM0:/dev/ttyACM0   # native-USB radios (CDC-ACM): IC-705, TH-D75, FT-5D, UV-PRO...
-    #   - /dev/snd:/dev/snd           # a radio's built-in USB sound card, for VARA/Winlink audio (see README §Radios)
+    #   - /dev/snd:/dev/snd           # a radio's built-in USB sound card, for VARA/Winlink audio (see docs/radios.md)
     # If a mapped serial device still isn't accessible from the desktop, add its
     # host-side group id here (find it with `ls -l /dev/ttyUSB0`):
     # group_add:

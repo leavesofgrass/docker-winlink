@@ -1,10 +1,9 @@
 # syntax=docker/dockerfile:1
 #
-# Arch Linux ham-shack container: XFCE desktop over VNC, focused on Winlink +
-# VARA (the two Windows emergency-comms apps). Most native ham apps that compile
-# from source (wsjtx, js8call, fldigi, wfview, SDR++, gpredict, ...) were removed
-# to keep the build fast; see git history / the full variant if you want them
-# back. direwolf is kept (small build) as the software TNC for Packet Winlink.
+# Docker WinLink — an Arch Linux desktop (XFCE over VNC) for amateur radio,
+# focused on Winlink Express + VARA under Wine. direwolf (software TNC for
+# Packet Winlink), CHIRP, and hamlib are included; heavier native apps are not,
+# to keep the build fast.
 #   - TigerVNC on display :0  -> port 5900 (any VNC client)
 #   - noVNC browser client    -> port 6080 (http://localhost:6080/vnc.html)
 #   - Wine prefix with .NET 4.8 + VB6 + VC++2015 runtimes, with Winlink
@@ -69,7 +68,7 @@ ARG PART97_URL=https://www.govinfo.gov/content/pkg/CFR-2025-title47-vol5/pdf/CFR
 FROM archlinux:latest AS base
 
 LABEL maintainer="kd7swh@gmail.com"
-LABEL description="Arch ham shack (Winlink/VARA focus): XFCE over VNC, Winlink Express + VARA FM/HF under Wine, offline FCC references"
+LABEL description="Docker WinLink: amateur-radio desktop (XFCE over VNC) with Winlink Express + VARA FM/HF under Wine, plus direwolf/CHIRP/hamlib and offline FCC references"
 
 ARG PULSE_SERVER=tcp:host.docker.internal:4713
 

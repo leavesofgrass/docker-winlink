@@ -1,1 +1,1 @@
-﻿Drop VARA FM / VARA HF installer zips from https://rosmodem.wordpress.com/ into this folder, then run install-vara.sh inside the container's VNC desktop.
+﻿Drop VARA FM / VARA HF / WinLink Express installer zips into this folder, then run install-vara.sh and/or install-winlink.sh inside the container's VNC desktop.

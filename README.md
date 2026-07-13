@@ -87,13 +87,17 @@ Keep it simple to start; reach for these when you need them:
 - **[docs/configuration.md](docs/configuration.md)** — `.env` settings, ports, SSH, references
 - **[docs/troubleshooting.md](docs/troubleshooting.md)** — common issues
 
-## About the bundled software
+## License
 
-Winlink Express and VARA are **not redistributed here** — the image downloads
-them from their official sites when you build. Winlink Express is free for
-licensed hams; VARA (EA5HVK) is shareware that runs speed-limited until you buy
-a key. Dire Wolf, CHIRP, and hamlib are open-source. You are responsible for
-holding the proper license to transmit and following your local regulations.
+This project — the Dockerfile, scripts, and documentation — is licensed under
+the **GNU General Public License v2.0** ([LICENSE](LICENSE)).
+Copyright © 2026 Jon Pielaet (KD7SWH).
+
+It does **not** redistribute Winlink Express or VARA — the image downloads those
+from their official sites when you build. Winlink Express is free for licensed
+hams; VARA (EA5HVK) is shareware that runs speed-limited until you buy a key.
+Dire Wolf, CHIRP, and hamlib are open-source. You are responsible for holding
+the proper license to transmit and following your local regulations.
 
 ---
 

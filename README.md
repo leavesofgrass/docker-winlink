@@ -21,7 +21,7 @@ containerized desktop — viewed in a web browser.</em></p>
 **2. Get the files** — download the ZIP from GitHub and unzip, or:
 
 ```bash
-git clone <your-repo-url> docker-winlink
+git clone https://github.com/leavesofgrass/docker-winlink docker-winlink
 cd docker-winlink
 ```
 

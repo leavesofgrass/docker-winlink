@@ -2,8 +2,11 @@
 
 An amateur-radio desktop in a container. One command gives you a full Linux
 desktop — in your web browser — with **Winlink Express**, **VARA FM/HF**,
-**Dire Wolf**, and **CHIRP** already installed and configured. No Linux or
-Docker experience needed. Runs on **Windows, macOS, and Linux**.
+**Dire Wolf**, and **CHIRP** already installed. You set them up with your own
+callsign and settings the first time, and — thanks to the container's
+persistent storage — that configuration is kept across restarts and even
+rebuilds. No Linux or Docker experience needed. Runs on **Windows, macOS, and
+Linux**.
 
 ![Winlink Express and VARA FM running on the Docker WinLink desktop](docs/images/desktop.png)
 
@@ -51,12 +54,17 @@ watching, not the container).
 
 That's it. 🎉
 
-## Try it with no radio
+## First run: set up your station
 
-Open **Winlink Express**, enter a callsign, and start a **Telnet Winlink**
-session — it sends real Winlink email over the internet, no radio required. Best
-first test that everything works. When ready for the air, see
-**[docs/radios.md](docs/radios.md)**.
+Nothing is pre-configured. The first time you open **Winlink Express** it walks
+you through a one-time setup — your **callsign** and a **Winlink account
+(password)**. Winlink needs a valid account to run, so complete this once (VARA
+is registered the same way). **You do this only once — it's saved** (see
+[Your setup is saved](#your-setup-is-saved)).
+
+Then, to prove it works with no hardware, start a **Telnet Winlink** session —
+it sends real Winlink email over the internet, no radio required. When you're
+ready for the air, see **[docs/radios.md](docs/radios.md)**.
 
 ## Everyday commands
 
@@ -67,8 +75,14 @@ docker compose logs -f        # watch output
 docker compose down           # stop + remove container (data kept)
 ```
 
-Your messages, VARA registration, and settings live in a Docker volume and
-survive stops, restarts, and rebuilds.
+### Your setup is saved
+
+Everything you configure — your **callsign and Winlink account**, VARA
+registration, messages, and app settings — lives in a **Docker volume**, which
+is separate from the container image by design. So it survives `stop`, `start`,
+and even a full **rebuild** of the image: set up your station once and it comes
+back every time. The only thing that erases it is `docker compose down -v`, a
+deliberate factory reset.
 
 ## Rebuilding
 

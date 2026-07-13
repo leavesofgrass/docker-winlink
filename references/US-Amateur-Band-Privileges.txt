@@ -1,0 +1,60 @@
+================================================================================
+  U.S. AMATEUR RADIO FREQUENCY PRIVILEGES  (quick reference)
+================================================================================
+Summarized from FCC Rules Part 97 (47 CFR 97.301, 97.303, 97.305) — the
+PUBLIC-DOMAIN federal regulation. The full text is in this same folder as
+FCC-Part-97.pdf; if anything here disagrees with Part 97, Part 97 governs.
+
+This is the legal allocation. It is NOT the ARRL Band Plan, which additionally
+recommends *voluntary* sub-band usage (e.g. where SSB vs. data vs. CW go within
+a band). For those conventions see the ARRL Band Plan at
+http://www.arrl.org/band-plan  (fetch it when you have Internet).
+
+License classes below: T=Technician, G=General, A=Advanced (grandfathered),
+E=Amateur Extra. "P" = phone/image privileges in that segment.
+Always confirm current rules — allocations change (e.g. symbol-rate/bandwidth
+and new bands). Verified against the 2025 CFR edition.
+
+--------------------------------------------------------------------------------
+HF BANDS
+--------------------------------------------------------------------------------
+160 m   1.800 - 2.000 MHz    G A E   CW/data/phone across the band
+ 80 m   3.500 - 3.600 MHz    G A E   CW/data
+        3.600 - 3.800 MHz    G(P) A(P) E(P)   with phone; E from 3.600,
+                                      A from 3.700, G from 3.800 up to 4.000
+        3.800 - 4.000 MHz    G A E   phone/image
+        (Technician: 3.525-3.600 MHz CW only)
+ 60 m   5 channels near 5.3 MHz   G A E   USB/CW/data, 100 W PEP ERP,
+                                      channelized (see 97.303(s))
+ 40 m   7.000 - 7.125 MHz    G A E   CW/data (E from 7.000, A 7.025, G 7.025)
+        7.125 - 7.300 MHz    G A E   phone/image (G from 7.175)
+        (Technician: 7.025-7.125 MHz CW only)
+ 30 m   10.100 - 10.150 MHz  G A E   CW/data only, 200 W PEP max, NO phone
+ 20 m   14.000 - 14.150 MHz  G A E   CW/data (E from 14.000, A/G 14.025)
+        14.150 - 14.350 MHz  A(P) E(P), G(P) from 14.225   phone/image
+ 17 m   18.068 - 18.110 MHz  G A E   CW/data
+        18.110 - 18.168 MHz  G A E   phone/image
+ 15 m   21.000 - 21.200 MHz  G A E   CW/data (Tech 21.025-21.200 CW only)
+        21.200 - 21.450 MHz  A(P) E(P), G(P) from 21.275   phone/image
+ 12 m   24.890 - 24.930 MHz  G A E   CW/data
+        24.930 - 24.990 MHz  G A E   phone/image
+ 10 m   28.000 - 28.300 MHz  T G A E CW/data (Technician included!)
+        28.300 - 28.500 MHz  T(P) G(P) A(P) E(P)   phone (Tech 28.3-28.5)
+        28.500 - 29.700 MHz  G A E   phone/image
+
+--------------------------------------------------------------------------------
+VHF / UHF / MICROWAVE  (Technician and above have FULL privileges here)
+--------------------------------------------------------------------------------
+  6 m    50.0 -  54.0 MHz    T G A E   (50.0-50.1 CW/beacon; phone above 50.1)
+  2 m   144.0 - 148.0 MHz    T G A E   (144.0-144.1 CW; phone/all above)
+1.25 m  219.0 - 220.0 MHz    (data, restricted)   222.0 - 225.0 MHz  T G A E
+ 70 cm  420.0 - 450.0 MHz    T G A E
+ 33 cm  902.0 - 928.0 MHz    T G A E
+ 23 cm 1240.0 -1300.0 MHz    T G A E
+  and higher amateur microwave bands: 2.3, 3.4, 5.6, 10, 24 GHz, etc.
+  (see 97.301 — some bands have recent changes; verify current status)
+
+--------------------------------------------------------------------------------
+POWER LIMIT (general): 1500 W PEP output, except where noted (30 m: 200 W;
+60 m: 100 W PEP ERP; and use the minimum power necessary — 97.313).
+================================================================================

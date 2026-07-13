@@ -1,0 +1,13 @@
+# Normalize line endings to LF for everything the container runs. A CRLF ending
+# in a shell script or the Dockerfile breaks the build on Windows checkouts
+# ("bad interpreter" / stray \r), so enforce LF repo-wide regardless of a
+# contributor's git autocrlf setting.
+* text=auto eol=lf
+
+# Be explicit for the files that must never be CRLF.
+*.sh          text eol=lf
+Dockerfile    text eol=lf
+entrypoint.sh text eol=lf
+radio-connect text eol=lf
+radio-perms   text eol=lf
+ham-sshd      text eol=lf

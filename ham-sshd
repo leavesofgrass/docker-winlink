@@ -1,0 +1,8 @@
+#!/bin/bash
+# Start the fallback SSH daemon. Invoked as root by the entrypoint through a
+# narrow NOPASSWD sudoers rule (sshd needs root; the desktop runs as the user).
+# /run/sshd is on tmpfs and empty on each container start, so (re)create the
+# privilege-separation directory before launching. Runs in the foreground so
+# the entrypoint can supervise it alongside the VNC/XFCE/noVNC services.
+mkdir -p /run/sshd
+exec /usr/bin/sshd -D -e

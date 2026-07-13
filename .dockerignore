@@ -1,0 +1,15 @@
+# Keep the build context minimal — only the Dockerfile, references/, and the
+# helper scripts are COPY'd into the image. Everything else is excluded.
+.git
+.gitignore
+.gitattributes
+.env
+.env.example
+docker-compose.yml
+installers/
+*.md
+*.log
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

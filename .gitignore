@@ -1,0 +1,34 @@
+# ── Local config (your passwords) — never commit ────────────────────────────
+.env
+.env.*
+!.env.example
+
+# ── Installer downloads — proprietary third-party software ───────────────────
+# VARA is paid shareware; Winlink Express is freeware for licensed hams. The
+# image downloads them at build time, so they must never live in the repo.
+# Keep the installers/ folder (bind-mount target) with only its placeholder.
+installers/*
+!installers/put-VARA-zips-here.txt
+*.zip
+*.exe
+*.msi
+*.7z
+
+# ── Downloaded references (fetched into the image at build, not tracked) ─────
+references/*.pdf
+
+# ── Logs / scratch ──────────────────────────────────────────────────────────
+*.log
+tmp/
+scratch/
+
+# ── OS & editor cruft ───────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+*~
+*.swp
+*.swo
+.vscode/
+.idea/

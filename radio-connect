@@ -1,0 +1,38 @@
+#!/bin/bash
+# Prepare attached USB radios for Winlink Express / VARA / CHIRP:
+#   1) make the serial devices accessible (via sudo radio-perms)
+#   2) map each serial device to a Wine COM port, so Winlink Express and VARA
+#      can select the radio's CAT/PTT port as COM1, COM2, ...
+#
+# Re-run this any time you attach a new radio (e.g. after `usbipd attach` on
+# Windows). It's also run once automatically when the container starts.
+export WINEPREFIX="$HOME/.wine"
+
+sudo -n /usr/local/bin/radio-perms 2>/dev/null \
+  || echo "note: could not auto-fix serial permissions (try: sudo /usr/local/bin/radio-perms)"
+
+dosdev="$WINEPREFIX/dosdevices"
+mkdir -p "$dosdev"
+# drop stale COM symlinks so numbering reflects what's attached now
+for l in "$dosdev"/com*; do [ -L "$l" ] && rm -f "$l"; done
+
+shopt -s nullglob
+i=1
+found=0
+echo "USB radio serial ports -> Wine COM ports:"
+for d in /dev/ttyUSB* /dev/ttyACM*; do
+    ln -sf "$d" "$dosdev/com$i"
+    printf '  COM%s  ->  %s\n' "$i" "$d"
+    i=$((i + 1)); found=1
+done
+
+if [ "$found" -eq 0 ]; then
+    echo "  (none found)"
+    echo
+    echo "No USB serial devices present (/dev/ttyUSB*, /dev/ttyACM*)."
+    echo "On Windows, attach the radio to WSL2 first with usbipd-win, then re-run"
+    echo "radio-connect. See the 'Connecting radios' section of README.md."
+else
+    echo
+    echo "In Winlink Express / VARA, choose the COM port shown above for the radio."
+fi

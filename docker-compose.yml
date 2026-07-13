@@ -1,0 +1,85 @@
+# Docker Compose for the ham-shack container (XFCE over VNC, Wine for
+# Winlink Express + VARA FM, native ham apps). Values come from the .env file
+# in THIS directory. Run:  docker compose up -d --build
+#
+# Connect:
+#   browser:    http://localhost:6080/vnc.html   (noVNC, no client needed)
+#   VNC client: localhost:5900
+# Password: VNC_PASSWORD from .env.
+
+name: ham-shack
+
+services:
+  ham:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # NOTE: do not name this USERNAME — on Windows that collides with the
+        # built-in OS env var and overrides .env. HAM_USER is collision-safe.
+        USERNAME: ${HAM_USER:-ham}
+        USER_PASSWORD: ${USER_PASSWORD:-changeme}
+        PULSE_SERVER: ${PULSE_SERVER:-tcp:host.docker.internal:4713}
+    image: ham-shack
+    container_name: ham-shack
+    hostname: ham-shack
+    # Makes "host.docker.internal" resolve on Linux hosts too (it already does
+    # on Docker Desktop for Windows/Mac, where this line is a harmless no-op).
+    # Without it, the default audio target below wouldn't resolve on Linux; with
+    # it, audio degrades cleanly to "no sound" when no PulseAudio server is
+    # listening there (the apps still run — see the audio notes in README.md).
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      # Audio target. Default fits Docker Desktop + PulseAudio-on-Windows.
+      # On Linux with no server there, this just fails to connect and the apps
+      # run silently (verified: no hang). To get real audio on a LINUX host,
+      # point this at your host's PulseAudio/PipeWire and mount its socket —
+      # see the commented "Linux native audio" block under volumes: below.
+      PULSE_SERVER: ${PULSE_SERVER:-tcp:host.docker.internal:4713}
+      VNC_PASSWORD: ${VNC_PASSWORD:-changeme}
+      VNC_GEOMETRY: ${VNC_GEOMETRY:-1280x800}
+      # Optional SSH public key for the fallback sshd (installed at runtime).
+      SSH_PUBKEY: ${SSH_PUBKEY:-}
+    ports:
+      # VNC (any client)
+      - "${VNC_PORT:-5900}:5900"
+      # noVNC (browser: http://localhost:6080/vnc.html)
+      - "${NOVNC_PORT:-6080}:6080"
+      # Fallback SSH shell:  ssh -p 2424 ham@localhost
+      - "${SSH_PORT:-2424}:2424"
+    volumes:
+      # Persistent home: Wine prefix (with Winlink/VARA once installed), app
+      # configs, logs — survives rebuilds/recreates.
+      - ham-home:/home/${HAM_USER:-ham}
+      # Drop VARA (and optionally Winlink) installer zips here from the host.
+      - ./installers:/home/${HAM_USER:-ham}/installers
+      # Linux native audio (optional): to hear the container on a LINUX host,
+      # share the host PulseAudio/PipeWire socket and set, in .env,
+      #   PULSE_SERVER=unix:/run/user/1000/pulse/native
+      # (adjust 1000 to your host UID: `id -u`). Then uncomment:
+      # - /run/user/1000/pulse/native:/run/user/1000/pulse/native
+    # Qt apps (wsjtx/js8call) are happier with more shared memory than
+    # docker's 64 MB default.
+    shm_size: "512m"
+    restart: unless-stopped
+    stop_grace_period: 10s
+    # ── USB radios (CAT control, packet TNC, CHIRP programming) ──────────────
+    # Docker Desktop can't see USB directly: on Windows, attach the radio to
+    # WSL2 first with usbipd-win (`usbipd list`, `usbipd bind --busid <ID>`,
+    # `usbipd attach --wsl --busid <ID>`), confirm it shows in WSL as
+    # /dev/ttyUSB0 or /dev/ttyACM0, then uncomment the matching line and
+    # `docker compose up -d`. On a Linux host the device is already local — just
+    # uncomment. After it's attached, run `radio-connect` in the desktop (the
+    # entrypoint also runs it at start) to map it to a Wine COM port.
+    # devices:
+    #   - /dev/ttyUSB0:/dev/ttyUSB0   # USB-serial cables (FTDI/CP210x/PL2303): UV-5R prog cable, IC-7100, ID-5100, FTM-150...
+    #   - /dev/ttyACM0:/dev/ttyACM0   # native-USB radios (CDC-ACM): IC-705, TH-D75, FT-5D, UV-PRO...
+    #   - /dev/snd:/dev/snd           # a radio's built-in USB sound card, for VARA/Winlink audio (see README §Radios)
+    # If a mapped serial device still isn't accessible from the desktop, add its
+    # host-side group id here (find it with `ls -l /dev/ttyUSB0`):
+    # group_add:
+    #   - "20"
+
+volumes:
+  ham-home:

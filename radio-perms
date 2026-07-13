@@ -1,0 +1,10 @@
+#!/bin/bash
+# Give the desktop user access to attached USB serial radios/cables by moving
+# the device nodes into the 'uucp' group (which the ham user belongs to).
+# Runs as root via a narrow NOPASSWD sudoers rule — invoked by radio-connect.
+# Deliberately narrow: only touches /dev/ttyUSB* and /dev/ttyACM* serial nodes.
+shopt -s nullglob
+for d in /dev/ttyUSB* /dev/ttyACM*; do
+    chgrp uucp "$d" 2>/dev/null || true
+    chmod g+rw "$d" 2>/dev/null || true
+done

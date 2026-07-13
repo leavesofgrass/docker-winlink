@@ -11,3 +11,11 @@ entrypoint.sh text eol=lf
 radio-connect text eol=lf
 radio-perms   text eol=lf
 ham-sshd      text eol=lf
+
+# Images and other binaries — never normalize or diff as text.
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.pdf  binary
+*.ico  binary

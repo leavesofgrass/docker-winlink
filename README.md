@@ -5,6 +5,11 @@ desktop — in your web browser — with **Winlink Express**, **VARA FM/HF**,
 **Dire Wolf**, and **CHIRP** already installed and configured. No Linux or
 Docker experience needed. Runs on **Windows, macOS, and Linux**.
 
+![Winlink Express and VARA FM running on the Docker WinLink desktop](docs/images/desktop.png)
+
+<p align="center"><em>Winlink Express and VARA FM running under Wine on the
+containerized desktop — viewed in a web browser.</em></p>
+
 > 📡 You need an amateur radio license to transmit. Winlink's telnet mode and
 > everything else here work for practice with no radio and no license.
 
@@ -86,6 +91,12 @@ Keep it simple to start; reach for these when you need them:
 - **[docs/audio.md](docs/audio.md)** — getting sound working per platform
 - **[docs/configuration.md](docs/configuration.md)** — `.env` settings, ports, SSH, references
 - **[docs/troubleshooting.md](docs/troubleshooting.md)** — common issues
+
+## Contributing
+
+Improvements are very welcome — especially reports of what worked (or didn't)
+with your radio and host OS. See **[CONTRIBUTING.md](CONTRIBUTING.md)**. If this
+was useful, a ⭐ helps others find it.
 
 ## License
 
